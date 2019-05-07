@@ -9,7 +9,6 @@ public class Escalonador {
 		 Scanner scanner = new Scanner(System.in);
 	
 		 int N, entrada, tempoAtual, execucao, idProcessoAtual, qteprocessos;
-		 
 		 ArrayList entradas, duracoes, prioridades, processos, cpentradas;
 		 
 		 int[] temposFinais, temposIniciais;
@@ -32,10 +31,10 @@ public class Escalonador {
 			 duracoes = new ArrayList();
 			 prioridades = new ArrayList();
 
-		 	// lendo os processos
+		 	// Lendo os processos
 			 for (int i = 0; i < N; i++) {
 				 
-				 // le e adiciona dados dos processos em suas respectivas listas
+				 // Lê e adiciona dados dos processos em suas respectivas listas
 				 System.out.println("Entrada do processo P" + (i+1) + ":");
 				 entrada = scanner.nextInt();
 				 entradas.add(entrada);
@@ -54,7 +53,7 @@ public class Escalonador {
 			 temposIniciais = new int[N];
 			 temposFinais = new int[N];
 			 
-		 	 // cria copia da lista de tempos de ingressos devido a modificacoes
+		 	 // Cria cópia da lista de tempos de entradas devido a modificações
 			 cpentradas = (ArrayList) entradas.clone();
 
 			 ordemExecucao = "";
@@ -65,13 +64,13 @@ public class Escalonador {
 			 qteprocessos = N;
 			 
 			 while (qteprocessos > 0) {
-				 // percorrendo ingressos para descobrir processos que entram no tempo atual
+				 // Percorrendo ingressos para descobrir processos que entram no tempo atual
 				 
 				 processos = new ArrayList();
 				 
 				 for (int i = 0; i < N; i++) {
 					 if ((int) entradas.get(i) != -1 && (int) entradas.get(i) <= tempoAtual) {
-						 // adicionar na lista de processos
+						 // Adicionar na lista de processos
 						 processos.add(i);
 					 }
 				 }
@@ -79,16 +78,16 @@ public class Escalonador {
 				 if (processos.isEmpty()) {
 					 tempoAtual++;
 				 } else {
-					 // assumindo que o primeiro da lista eh o de menor prioridade
+					 // Declarando que o primeiro elemento da lista é o de menor prioridade
 					 execucao = (int) processos.get(0);
 					 
 					 for (int i = 0; i < processos.size(); i++) {
 						 
 						 idProcessoAtual = (int) processos.get(i);
-						 // se a prioridade do processo atual for menor do que a menor prioridade ja encontrada
 						 
+						 // Se a prioridade do processo atual for menor do que a menor prioridade já encontrada
 						 if ((int) prioridades.get(idProcessoAtual) < (int) prioridades.get(execucao)) {
-							 // entao alteramos o processo que vai executar
+							 // Então alteramos o processo que vai executar
 							 execucao = (int) processos.get(i);
 						 }
 					 }
@@ -97,18 +96,18 @@ public class Escalonador {
 
 					 tempoAtual += (int) duracoes.get(execucao);
 
-					 // tempo que o processo termina de executar
+					 // Tempo que o processo termina de executar
 					 temposFinais[execucao] = tempoAtual;
 					 entradas.set(execucao, -1);
 
-					 // define ordem de execucao
+					 // Define ordem de execução
 					 ordemExecucao += "P" + (execucao + 1) + " ";
 
 					 qteprocessos--;
 				 }
 			 }
 
-			 // calculo tempo de execucao e tempo de espera
+			 // Cálculo do tempo de execução e tempo de espera
 			 double tempoExecucao = 0, tempoEspera = 0;
 			 
 			 for (int i = 0; i < N; i++) {
@@ -119,6 +118,7 @@ public class Escalonador {
 			 tempoExecucao = tempoExecucao / N;
 			 tempoEspera = tempoEspera / N;
 			 
+			 // Impressões finais
 			 System.out.println("Processamento n° " + contTeste);
 
 			 formato = nf.format(tempoExecucao);
@@ -136,6 +136,7 @@ public class Escalonador {
 			 System.out.println("Ordem de execução: " + ordemExecucao);
 			 System.out.println();
 			 
+			 // Digitar zero para interromper...
 			 N = scanner.nextInt();
 		 }
 	}
